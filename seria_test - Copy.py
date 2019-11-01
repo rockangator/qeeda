@@ -1,10 +1,18 @@
 import serial
+import time
+import config
 
-def send_rf(sertx, msg):
-    print(msg.encode())
-    sertx.write(msg.encode())
-    #ser.write('A'.encode())
+sertx = serial.Serial('COM21', 115200)
 
-serTX = serial.Serial('COM21', 115200)
-
-send_rf(serTX, '1')
+while 1:
+    for i in range(4):
+        msg = str(i+1)
+        print('sending: ',msg.encode())
+        
+        config.msgstat = 'A' + msg
+        print(config.msgstat)
+        print(type(config.msgstat))
+        config.t1 = time.time()
+        sertx.write(msg.encode())
+        time.sleep(2)
+    

@@ -7,3 +7,7 @@
 
 ## speed of light in meters per second
 speedOfLight = 3* 10**8      # in m/s
+
+msgstat = None
+t1 = 0
+t2 = 0
