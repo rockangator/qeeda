@@ -1,0 +1,58 @@
+#include <VirtualWire.h>
+//#include <AFMotor.h>
+
+void setup()
+{
+Serial.begin(9600);
+pinMode(13, OUTPUT);
+vw_setup(2000);
+vw_set_rx_pin(2);
+vw_rx_start();
+
+}
+void loop()
+{
+byte message[VW_MAX_MESSAGE_LEN];
+byte messageLength = VW_MAX_MESSAGE_LEN;
+
+if (vw_get_message(message, &messageLength))
+{
+ // Serial.println();
+for (int i = 0; i < messageLength; i++)
+{
+Serial.write(message[i]);
+}
+Serial.println();
+}
+}
+
+
+
+
+
+
+
+
+
+#include <VirtualWire.h>
+const char inData[50];
+int newmessage = 0;
+void setup() {
+vw_setup(2000);
+vw_set_tx_pin(12);
+Serial.begin(9600);
+}
+void loop()
+{
+char inChar;
+byte index = 0;
+const char mss[20];
+
+const char *msg = "hello";
+//sprintf(mss, "%s", inData);
+vw_send((uint8_t *)msg, strlen(msg));
+vw_wait_tx();
+//Serial.println(msg);
+delay(600);
+newmessage = 0; // Indicate that there is no new message to wait for the new one
+}
